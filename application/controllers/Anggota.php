@@ -120,5 +120,19 @@ class Anggota extends CI_Controller {
     redirect('anggota/index');
 
     }
+
+    public function delete($id){
+      $this->model_anggota->delete_anggota($id);
+      redirect('anggota/index');
+    }
+
+    public function cetak_laporan(){
+      $data['anggota'] = $this->model_anggota->get_anggota();
+      $this->pdf->setPaper('A4', 'landscape');
+      $this->pdf->filename = "laporan-anggota.pdf";
+      $this->pdf->load_view('laporan_anggota', $data);
+    }
+
+    
     
 }

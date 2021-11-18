@@ -20,4 +20,11 @@ class Model_Anggota extends CI_Model
         return $this->db->update('anggota', $data);
     }
 
+    public function delete_anggota($id){
+        return $this->db->delete('anggota', array('no' => $id));
+    }
+
+    public function cek_user($username){
+      return $this->db->get_where('anggota', array('username' => $username))->row_array();
+    }
 }

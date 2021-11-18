@@ -1,8 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
-
+class Login extends CI_Controller {
+	function __construct(){
+        parent::__construct();
+        $this->load->model('model_anggota');
+    }
 	/**
 	 * Index Page for this controller.
 	 *
@@ -20,6 +23,19 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+
+		$this->load->view('home_login');
+	}
+
+	public function proses(){
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$data = $this->model_anggota->cek_user($username);
+		if($data){
+			echo "Sudah";
+		}else{
+			echo "Belum";
+		}
+		
 	}
 }
