@@ -20,6 +20,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <h1>Aplikasi Koperasi</h1>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">Tambah
             Anggota</button>
+        <a role="button" href="<?= base_url();?>anggota/cetak_laporan" class="btn btn-success">Cetak Laporan</a>
         <table class="table">
             <thead>
                 <tr>
@@ -39,12 +40,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th scope="col">Delete</th>
                 </tr>
             </thead>
-            <?php 
+            <?php
+            $no = 1; 
            foreach($anggota as $a){
+
                ?>
             <tbody>
                 <tr>
-                    <th scope="row"><?= $a['no']?></th>
+                    <th scope="row"><?= $no++;?></th>
                     <td><?= $a['nama']?></td>
                     <td><?= $a['alamat']?></td>
                     <td><?= $a['tempat_lahir']?></td>
@@ -58,7 +61,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <td><?= $a['hak_akses']?></td>
                     <td><button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#edit_anggota">Edit</button></td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
+                    <td><a href="<?= base_url(); ?>anggota/delete/<?=$a["no"]?>" role="button"
+                            class="btn btn-danger">Delete</a></td>
                 </tr>
             </tbody>
             <!-- Modal -->
@@ -73,77 +77,77 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </button>
                         </div>
                         <div class="modal-body">
-                        <form action="<?= base_url();?>anggota/edit/<?= $a["no"]?>" method="POST">
+                            <form action="<?= base_url();?>anggota/edit/<?= $a["no"]?>" method="POST">
 
-                            <div class="form-group">
-                                <label for="Nama">Nama</label>
-                                <input type="text" name="nama" class="form-control" id="Nama"
-                                    placeholder="Masukan Nama" value="<?=$a['nama']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Alamat">Alamat</label>
-                                <input name="alamat" type="text" class="form-control" id="Alamat"
-                                    placeholder="Masukan Alamat" value="<?=$a['alamat']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Tempat Lahir">Tempat Lahir</label>
-                                <input type="text" name="tempat_lahir" class="form-control" id="Tempat_Lahir"
-                                    placeholder="Masukan Tempat Lahir" value="<?=$a['tempat_lahir']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Tanggal Lahir">Tanggal Lahir</label>
-                                <input type="date" name="tanggal_lahir" class="form-control" id="Tanggal_Lahir"
-                                    placeholder="Masukan Tempat Lahir" value="<?=$a['tanggal_lahir']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Jenis Kelamin">Jenis Kelamin</label>
+                                <div class="form-group">
+                                    <label for="Nama">Nama</label>
+                                    <input type="text" name="nama" class="form-control" id="Nama"
+                                        placeholder="Masukan Nama" value="<?=$a['nama']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Alamat">Alamat</label>
+                                    <input name="alamat" type="text" class="form-control" id="Alamat"
+                                        placeholder="Masukan Alamat" value="<?=$a['alamat']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Tempat Lahir">Tempat Lahir</label>
+                                    <input type="text" name="tempat_lahir" class="form-control" id="Tempat_Lahir"
+                                        placeholder="Masukan Tempat Lahir" value="<?=$a['tempat_lahir']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Tanggal Lahir">Tanggal Lahir</label>
+                                    <input type="date" name="tanggal_lahir" class="form-control" id="Tanggal_Lahir"
+                                        placeholder="Masukan Tempat Lahir" value="<?=$a['tanggal_lahir']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Jenis Kelamin">Jenis Kelamin</label>
 
-                                <select id="Jenis_Kelamin" name="jenis_kelamin" class="form-control">
-                                    <option hidden><?=$a['jenis_kelamin']?></option>
-                                    <option>Laki-Laki</option>
-                                    <option>Perempuan</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Pekerjaan">Pekerjaan</label>
-                                <input type="text" name="pekerjaan" class="form-control" id="Pekerjaan"
-                                    placeholder="Masukan Pekerjaan" value="<?=$a['pekerjaan']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Status">Status</label>
-                                <select id="Status" name="status" class="form-control">
-                                    <option value="<?=$a['status']?>"></option>
-                                    <option value="0">Tidak Aktif</option>
-                                    <option value="1">aktif</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Tanggal Masuk">Tanggal Masuk</label>
-                                <input type="date" name="tanggal_masuk" class="form-control" id="Tanggal_Masuk"
-                                    placeholder="Masukan Tanggal Masuk" value="<?=$a['tanggal_masuk']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Username">Username</label>
-                                <input type="text" name="username" class="form-control" id="Pekerjaan"
-                                    placeholder="Masukan Username" value="<?=$a['username']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Password">Password</label>
-                                <input type="password" name="password" class="form-control" id="Pekerjaan"
-                                    placeholder="Masukan Password" value="<?=$a['password']?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="Hak Akses">Hak Akses</label>
-                                <select id="Hak_Akses" name="hak_akses" class="form-control">
-                                    <option hidden><?=$a['hak_akses']?></option>
-                                    <option>Anggota</option>
-                                    <option>Sekertaris</option>
-                                    <option>Bendahara</option>
-                                    <option>Owner</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                                    <select id="Jenis_Kelamin" name="jenis_kelamin" class="form-control">
+                                        <option hidden><?=$a['jenis_kelamin']?></option>
+                                        <option>Laki-Laki</option>
+                                        <option>Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Pekerjaan">Pekerjaan</label>
+                                    <input type="text" name="pekerjaan" class="form-control" id="Pekerjaan"
+                                        placeholder="Masukan Pekerjaan" value="<?=$a['pekerjaan']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Status">Status</label>
+                                    <select id="Status" name="status" class="form-control">
+                                        <option value="<?=$a['status']?>"></option>
+                                        <option value="0">Tidak Aktif</option>
+                                        <option value="1">aktif</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Tanggal Masuk">Tanggal Masuk</label>
+                                    <input type="date" name="tanggal_masuk" class="form-control" id="Tanggal_Masuk"
+                                        placeholder="Masukan Tanggal Masuk" value="<?=$a['tanggal_masuk']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Username">Username</label>
+                                    <input type="text" name="username" class="form-control" id="Pekerjaan"
+                                        placeholder="Masukan Username" value="<?=$a['username']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Password">Password</label>
+                                    <input type="password" name="password" class="form-control" id="Pekerjaan"
+                                        placeholder="Masukan Password" value="<?=$a['password']?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Hak Akses">Hak Akses</label>
+                                    <select id="Hak_Akses" name="hak_akses" class="form-control">
+                                        <option hidden><?=$a['hak_akses']?></option>
+                                        <option value="1">Anggota</option>
+                                        <option value="2">Sekertaris</option>
+                                        <option value="3">Bendahara</option>
+                                        <option value="4">Owner</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -219,10 +223,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group">
                                 <label for="Hak Akses">Hak Akses</label>
                                 <select id="Hak_Akses" name="hak_akses" class="form-control">
-                                    <option selected>Anggota</option>
-                                    <option>Sekertaris</option>
-                                    <option>Bendahara</option>
-                                    <option>Owner</option>
+                                    <option selected value="1">Anggota</option>
+                                    <option value="2">Sekertaris</option>
+                                    <option value="3">Bendahara</option>
+                                    <option value="4">Owner</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
